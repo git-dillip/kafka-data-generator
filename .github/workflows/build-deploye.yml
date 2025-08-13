@@ -24,7 +24,7 @@ jobs:
 
   Build-job-prod:
     if: inputs.environment =='prod'
-    uses: git-dillip/common-workflow-repo/.github/workflows/build-deploye-api.yml@main
+    uses: git-dillip/common-workflow-repo/.github/workflows/build-deploye-api.yml@dev-env
     with:
       ENV_NAME: ${{inputs.environment}}
     secrets: inherit
