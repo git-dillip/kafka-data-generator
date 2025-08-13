@@ -10,9 +10,9 @@ name: feature Build
 
 on:
   push:
-    branches: [ "dev-env" ]
+    branches: [ "dev-env1" ]
   pull_request:
-    branches: [ "dev-env" ]
+    branches: [ "dev-env1" ]
 
 jobs:
   build:
