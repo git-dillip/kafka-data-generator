@@ -17,28 +17,28 @@ on:
 jobs:
   Build-job-non-prod:
     if: inputs.environment !='prod'
-    uses: common-workflow-repo/.github/workflows/build-deploye-api.yml@dev-env
+    uses: git-dillip/common-workflow-repo/.github/workflows/build-deploye-api.yml@dev-env
     with:
       ENV_NAME: ${{inputs.environment}}
     secrets: inherit
 
   Build-job-prod:
     if: inputs.environment =='prod'
-    uses: common-workflow-repo/.github/workflows/build-deploye-api.yml@main
+    uses: git-dillip/common-workflow-repo/.github/workflows/build-deploye-api.yml@main
     with:
       ENV_NAME: ${{inputs.environment}}
     secrets: inherit
 
   Sonar_scan:
     if: inputs.SONAR_FLAG == true
-    uses: reusable-workflow/.github/workflows/build-deploye-api.yml@main
+    uses: git-dillip/reusable-workflow/.github/workflows/sonar-api.yml@main
     with:
       ENV_NAME: ${{inputs.environment}}
     secrets: inherit
 
   Fortify:
     if: inputs.FORTIFY_FLAG ==true
-    uses: common-workflow-repo/.github/workflows/build-deploye-api.yml@main
+    uses: git-dillip/common-workflow-repo/.github/workflows/fortify.yml@main
     with:
       ENV_NAME: ${{inputs.environment}}
     secrets: inherit
