@@ -31,14 +31,14 @@ jobs:
 
   Sonar_scan:
     if: inputs.SONAR_FLAG == true
-    uses: git-dillip/common-workflow-repo/.github/workflows/sonar-api.yml@main
+    uses: git-dillip/common-workflow-repo/.github/workflows/sonar-api.yml@dev-env
     with:
       ENV_NAME: ${{inputs.environment}}
     secrets: inherit
 
   Fortify:
     if: inputs.FORTIFY_FLAG ==true
-    uses: git-dillip/common-workflow-repo/.github/workflows/fortify.yml@main
+    uses: git-dillip/common-workflow-repo/.github/workflows/fortify.yml@dev-env
     with:
       ENV_NAME: ${{inputs.environment}}
     secrets: inherit
