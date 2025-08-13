@@ -1,5 +1,5 @@
 name: build_deploye_full_pipeline
-run-name: Build_Deploy. Branch="${{github.ref_name}}",Env = "${{inputs.environment}}".
+run-name: Build_Deploy. Branch = "${{github.ref_name}}",Env = "${{inputs.environment}}".
 
 on:
   workflow_dispatch:
