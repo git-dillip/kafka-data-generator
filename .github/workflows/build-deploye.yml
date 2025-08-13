@@ -6,8 +6,8 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: build-deploye-full-pipeline
-#run-name: Build_Deploy. Branch="${{github.ref_name}}",Env = "${{input.environment}}".
+name: build_deploye_full_pipeline
+run-name: Build_Deploy. Branch="${{github.ref_name}}",Env = "${{inputs.environment}}".
 
 on:
   workflow_dispatch:
@@ -24,27 +24,27 @@ jobs:
     if: inputs.environment !='prod'
     uses: reusable-workflow/.github/workflows/build-deploye-api.yml@dev-env
     with:
-      ENV_NAME: ${{input.environment}}
+      ENV_NAME: ${{inputs.environment}}
     secrets: inherit
 
   Build-job-prod:
     if: inputs.environment =='prod'
     uses: reusable-workflow/.github/workflows/build-deploye-api.yml@main
     with:
-      ENV_NAME: ${{input.environment}}
+      ENV_NAME: ${{inputs.environment}}
     secrets: inherit
 
   Sonar_scan:
     if: inputs.SONAR_FLAG == true
     uses: reusable-workflow/.github/workflows/build-deploye-api.yml@main
     with:
-      ENV_NAME: ${{input.environment}}
+      ENV_NAME: ${{inputs.environment}}
     secrets: inherit
 
   Fortify:
     if: inputs.FORTIFY_FLAG =='prod'
     uses: reusable-workflow/.github/workflows/build-deploye-api.yml@main
     with:
-      ENV_NAME: ${{input.environment}}
+      ENV_NAME: ${{inputs.environment}}
     secrets: inherit
 
