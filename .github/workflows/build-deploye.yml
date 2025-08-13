@@ -7,7 +7,7 @@
 # documentation.
 
 name: build-deploye-full-pipeline
-run-name: Build_Deploy. Branch="${{github.ref_name}}",Env = "${{input.environment}}".
+#run-name: Build_Deploy. Branch="${{github.ref_name}}",Env = "${{input.environment}}".
 
 on:
   workflow_dispatch:
