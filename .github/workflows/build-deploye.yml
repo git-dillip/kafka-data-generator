@@ -1,0 +1,50 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: build-deploye-full-pipeline
+run-name: Build_Deploy. Branch="${{github.ref_name}}",Env = "${{input.environment}}".
+
+on:
+  workflow_dispatch:
+    inputs:
+      envirnoment:
+        type: environment
+        description: select the environment
+      SONAR_FLAG:
+        type: boolean
+        description: Sonar True or false
+
+jobs:
+  Build-job-non-prod:
+    if: inputs.environment !='prod'
+    uses: reusable-workflow/.github/workflows/build-deploye-api.yml@dev-env
+    with:
+      ENV_NAME: ${{input.environment}}
+    secrets: inherit
+
+  Build-job-prod:
+    if: inputs.environment =='prod'
+    uses: reusable-workflow/.github/workflows/build-deploye-api.yml@main
+    with:
+      ENV_NAME: ${{input.environment}}
+    secrets: inherit
+
+  Sonar_scan:
+    if: inputs.SONAR_FLAG == true
+    uses: reusable-workflow/.github/workflows/build-deploye-api.yml@main
+    with:
+      ENV_NAME: ${{input.environment}}
+    secrets: inherit
+
+  Fortify:
+    if: inputs.FORTIFY_FLAG =='prod'
+    uses: reusable-workflow/.github/workflows/build-deploye-api.yml@main
+    with:
+      ENV_NAME: ${{input.environment}}
+    secrets: inherit
+
