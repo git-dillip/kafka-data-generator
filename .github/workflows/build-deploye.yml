@@ -1,5 +1,5 @@
 name: build_deploye_full_pipeline
-run-name: Build_Deploy. Branch = "${{github.ref_name}}",Env = "${{inputs.environment}}".
+run-name: Build_Deploy for  Branch = "${{ github.ref_name }}" in  Env = "${{ inputs.environment }}".
 
 on:
   workflow_dispatch:
@@ -13,10 +13,13 @@ on:
       FORTIFY_FLAG:
         type: boolean
         description: Fortify Scan True or false
+      CODEQL_FLAG:
+        type: boolean
+        description: Codeql Scan True or false
 
 jobs:
   Build-job-non-prod:
-    if: inputs.environment !='prod'
+    if: inputs.environment != 'prod'
     uses: git-dillip/common-workflow-repo/.github/workflows/build-deploye-api.yml@dev-env
     with:
       ENV_NAME: ${{inputs.environment}}
@@ -25,6 +28,13 @@ jobs:
   Build-job-prod:
     if: inputs.environment =='prod'
     uses: git-dillip/common-workflow-repo/.github/workflows/build-deploye-api.yml@dev-env
+    with:
+      ENV_NAME: ${{inputs.environment}}
+    secrets: inherit
+
+  codeql_scan:
+    if: inputs.CODEQL_FLAG == true
+    uses: git-dillip/common-workflow-repo/.github/workflows/codeql-analysis.yml@dev-env
     with:
       ENV_NAME: ${{inputs.environment}}
     secrets: inherit
