@@ -4,7 +4,7 @@ run-name: Build_Deploy for  Branch = "${{ github.ref_name }}" in  Env = "${{ inp
 on:
   workflow_dispatch:
     inputs:
-      envirnoment:
+      environment:
         type: environment
         description: select the environment
       SONAR_FLAG:
