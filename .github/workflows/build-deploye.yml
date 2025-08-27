@@ -34,7 +34,7 @@ jobs:
 
   codeql_scan:
     if: inputs.CODEQL_FLAG == true
-    uses: git-dillip/common-workflow-repo/.github/workflows/codeql-analysis.yml@dev-env
+    uses: git-dillip/common-workflow-repo/.github/workflows/codeql-analysis-new.yml@dev-env
     with:
       ENV_NAME: ${{inputs.environment}}
     secrets: inherit
